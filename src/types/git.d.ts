@@ -3,14 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import {
-  Uri,
-  Event,
-  Disposable,
-  ProviderResult,
-  Command,
-  CancellationToken,
-} from 'vscode';
+import { Uri, Event, Disposable, ProviderResult, Command, CancellationToken } from 'vscode';
 export { ProviderResult } from 'vscode';
 
 export interface Git {
@@ -211,13 +204,8 @@ export interface Repository {
   setConfig(key: string, value: string): Promise<string>;
   getGlobalConfig(key: string): Promise<string>;
 
-  getObjectDetails(
-    treeish: string,
-    path: string,
-  ): Promise<{ mode: string; object: string; size: number }>;
-  detectObjectType(
-    object: string,
-  ): Promise<{ mimetype: string; encoding?: string }>;
+  getObjectDetails(treeish: string, path: string): Promise<{ mode: string; object: string; size: number }>;
+  detectObjectType(object: string): Promise<{ mimetype: string; encoding?: string }>;
   buffer(ref: string, path: string): Promise<Buffer>;
   show(ref: string, path: string): Promise<string>;
   getCommit(ref: string): Promise<Commit>;
@@ -245,19 +233,13 @@ export interface Repository {
   createBranch(name: string, checkout: boolean, ref?: string): Promise<void>;
   deleteBranch(name: string, force?: boolean): Promise<void>;
   getBranch(name: string): Promise<Branch>;
-  getBranches(
-    query: BranchQuery,
-    cancellationToken?: CancellationToken,
-  ): Promise<Ref[]>;
+  getBranches(query: BranchQuery, cancellationToken?: CancellationToken): Promise<Ref[]>;
   getBranchBase(name: string): Promise<Branch | undefined>;
   setBranchUpstream(name: string, upstream: string): Promise<void>;
 
   checkIgnore(paths: string[]): Promise<Set<string>>;
 
-  getRefs(
-    query: RefQuery,
-    cancellationToken?: CancellationToken,
-  ): Promise<Ref[]>;
+  getRefs(query: RefQuery, cancellationToken?: CancellationToken): Promise<Ref[]>;
 
   getMergeBase(ref1: string, ref2: string): Promise<string | undefined>;
 
@@ -274,12 +256,7 @@ export interface Repository {
   fetch(options?: FetchOptions): Promise<void>;
   fetch(remote?: string, ref?: string, depth?: number): Promise<void>;
   pull(unshallow?: boolean): Promise<void>;
-  push(
-    remoteName?: string,
-    branchName?: string,
-    setUpstream?: boolean,
-    force?: ForcePushMode,
-  ): Promise<void>;
+  push(remoteName?: string, branchName?: string, setUpstream?: boolean, force?: ForcePushMode): Promise<void>;
 
   blame(path: string): Promise<string>;
   log(options?: LogOptions): Promise<Commit[]>;
@@ -371,14 +348,9 @@ export interface API {
   registerRemoteSourcePublisher(publisher: RemoteSourcePublisher): Disposable;
   registerRemoteSourceProvider(provider: RemoteSourceProvider): Disposable;
   registerCredentialsProvider(provider: CredentialsProvider): Disposable;
-  registerPostCommitCommandsProvider(
-    provider: PostCommitCommandsProvider,
-  ): Disposable;
+  registerPostCommitCommandsProvider(provider: PostCommitCommandsProvider): Disposable;
   registerPushErrorHandler(handler: PushErrorHandler): Disposable;
-  registerBranchProtectionProvider(
-    root: Uri,
-    provider: BranchProtectionProvider,
-  ): Disposable;
+  registerBranchProtectionProvider(root: Uri, provider: BranchProtectionProvider): Disposable;
 }
 
 export interface GitExtension {

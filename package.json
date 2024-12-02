@@ -1,7 +1,8 @@
 {
-  "name": "wwid",
-  "displayName": "WWID",
-  "description": "What was I doing?",
+  "name": "whatwasidoin",
+  "displayName": "What was I doin'?",
+  "description": "Get a summary of where you last left off in your git repository.",
+  "publisher": "KealJones",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.95.0"
@@ -16,14 +17,27 @@
   "activationEvents": [
     "workspaceContains:.git"
   ],
-  "capabilities": {
-    "secrets": {}
-  },
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "What was I doin'?",
+      "properties": {
+        "whatwasidoin.showInStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a trigger button in the status bar."
+        },
+        "whatwasidoin.summaryLength": {
+          "type": "number",
+          "default": 900,
+          "description": "The maximum length of the summary. Max allowed 900."
+        }
+      }
+    },
     "commands": [
       {
-        "command": "wwid.whatwasidoin",
-        "title": "What Was I Doin?"
+        "command": "whatwasidoin.whatwasidoin",
+        "title": "What was I doin'?"
       }
     ]
   },
